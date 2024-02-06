@@ -23,20 +23,12 @@ async def on_message(message):
 
 
 async def count_message(message):
-    target_phrase = "I'm crying"
-    user_input = message.content.lower()
-
-    # Check similarity using Levenshtein distance
-    similarity = default_similarity(user_input, target_phrase)
-
-    # Define a threshold for considering a match
-    similarity_threshold = 0.8
-
-    if similarity >= similarity_threshold:
-        user_id = str(message.author.id)
-
-        # Increment the count for the user or set it to 1 if it doesn't exist
+    boolean = is_similar(message.content.lower(), [["im", "crying"], ["i", "am", "crying"]])
+    user_id = str(message.author.id)
+    if boolean == True:
         my_hashmap[user_id] = my_hashmap.get(user_id, 0) + 1
+
+        
 
 
 @client.command()
@@ -49,4 +41,4 @@ async def print_count(ctx):
 
 
 # Run the bot
-client.run('token')
+client.run('MTE5OTc5MTM5OTk1Mjk3ODA2MA.GvrI0L.pwmEdvIVDauuCCTDnLDp_wQTq093ONbd0zrCAc')
