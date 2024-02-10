@@ -1,6 +1,9 @@
 import discord
 from discord.ext import commands
+
 from matcher import *
+from settings import BOT_TOKEN
+from database import Database
 
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix="!", intents=intents)
@@ -23,7 +26,7 @@ async def on_message(message):
 
 
 async def count_message(message):
-    boolean = is_similar(message.content.lower(), [["im", "crying"], ["i", "am", "crying"]])
+    boolean = is_similar(message.content.lower(), ["im crying", "i am crying"])
     user_id = str(message.author.id)
     if boolean == True:
         my_hashmap[user_id] = my_hashmap.get(user_id, 0) + 1
