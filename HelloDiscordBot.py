@@ -30,15 +30,27 @@ async def count_message(message):
     user_id = str(message.author.id)
     if boolean == True:
         my_hashmap[user_id] = my_hashmap.get(user_id, 0) + 1
+    #call database function for increment_count
+    try:
+        with Database(filename.sqlite3) as db:
+            db.increment_count(user_id, my_hashmap.get(user_id))
+    except sqlite3.error:
+        pass
+    
+
 
         
 
 
 @client.command()
-async def print_count(ctx):
-    user_id = str(ctx.author.id)
+#not sure if we wanna print from the database i imagine query time will take longer, but ask Justin or Ethan
+async def print_count(ctx, user: discord.User = None):
+    if user is None:
+        user = ctx.author
+        #basically just prints the author's count if they forgot to give a user
+    user_id = str(user.id)
     count = my_hashmap.get(user_id, 0)
-    await ctx.send(f'This user {ctx.author.name} said Im crying {count} times')
+    await ctx.send(f'This user {user.name} said Im crying {count} times')
 
 
 
