@@ -45,7 +45,6 @@ async def count_message(message):
         
     user_id = message.author.id
     counter[user_id] = counter.get(user_id, 0) + 1
-    print(counter)
     #call database function for increment_count
     try:
         with Database('db/counts.sqlite') as db:
