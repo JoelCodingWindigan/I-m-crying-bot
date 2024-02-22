@@ -53,14 +53,13 @@ async def count_message(message):
     except sqlite3.Error as err:
         print("Error incrementing count", err)
     
-@client.command()
-#not sure if we wanna print from the database i imagine query time will take longer, but ask Justin or Ethan
-async def print_count(ctx, user: discord.User = None):
+@client.tree.command(name="im-crying-count")
+async def print_count(interaction: discord.Interaction, user: discord.User = None):
     #basically just prints the author's count if they forgot to give a user
     if user is None:
-        user = ctx.author
-    count = counter.get(user.id, 0)
-    await ctx.send(f'This user {user.name} said Im crying {count} times')
-
+        user = interaction.user
+    count = my_hashmap.get(user.id, 0)
+    await interaction.response.send_message(f"This user {user.name} said I'm crying {count} times.")
+   
 # Run the bot
 client.run(BOT_TOKEN)
