@@ -56,14 +56,14 @@ async def count_message(message):
         
 
 
-@client.command()
+@client.tree.command(name="im-crying-count")
 #not sure if we wanna print from the database i imagine query time will take longer, but ask Justin or Ethan
-async def print_count(ctx, user: discord.User = None):
+async def print_count(interaction: discord.Interaction, user: discord.User = None):
     #basically just prints the author's count if they forgot to give a user
     if user is None:
-        user = ctx.author
+        user = interaction.user
     count = my_hashmap.get(user.id, 0)
-    await ctx.send(f'This user {user.name} said Im crying {count} times')
+    await interaction.response.send_message(f"This user {user.name} said I'm crying {count} times.")
 
 
 
