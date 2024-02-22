@@ -6,21 +6,16 @@ class Database:
     def __init__(self, dbfile: str):
         self._conn = sqlite3.connect(dbfile)
         self._cursor = self._conn.cursor()
-        self._create_table()
     
-    def _create_table(self):
+    def createTable(self):
         #to create user_counts table
-        self.execute('''CREATE TABLE IF NOT EXISTS Crying (user_id TEXT PRIMARY KEY, count INTEGER DEFAULT 0)''')
+        self.execute('CREATE TABLE IF NOT EXISTS Crying (user_id INTEGER PRIMARY KEY, count INTEGER DEFAULT 0)')
 
-
-    
-    
     #same deal here don't remember the syntax
     #replaces value, incorporate into the count_message function of HelloDiscordBot
-    def increment_count(self, user, count):
-        self.execute('INSERT OR REPLACE INTO Crying (user_id, count) VALUES (?,?)', (user, count))
+    def increment_count(self, user_id: int, count: int):
+        self.execute('INSERT OR REPLACE INTO Crying (user_id, count) VALUES (?,?)', (user_id, count))
         self.commit()
-
 
     def __enter__(self):
         return self
