@@ -13,17 +13,7 @@ class Database:
         self.execute('''CREATE TABLE IF NOT EXISTS Crying (user_id TEXT PRIMARY KEY, count INTEGER DEFAULT 0)''')
 
 
-    #user as foreign key
-    #don't remember the syntax is it where FOREIGN = PRIMARY OR WHERE PRIMARY = FOREIGN in this case, clarify with Justin
-    #actually realistically not sure if we need to call this function, database is serving only as backup. We can call from hashmap directly
-    def print_count(self, user):
-        self.execute('SELECT count FROM Crying WHERE user_id = ?', (user,))
-        result = self.fetchone()
-        #fetchone will return a tuple our tuple will contain only one element, count, we can access by indexing with [0]
-        if result is not None:
-            return result[0]
-        else:
-            return 0
+    
     
     #same deal here don't remember the syntax
     #replaces value, incorporate into the count_message function of HelloDiscordBot

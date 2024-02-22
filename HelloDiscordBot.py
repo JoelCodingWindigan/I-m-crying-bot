@@ -21,12 +21,15 @@ async def on_ready():
     #this is in the event the bot crashed and we wanna recopy values from our database into our hashmap
     try:
         with Database('db/counts.sqlite3') as db:
+            
+            db.execute("SELECT * FROM Crying")
             queries = db.fetchall()
         
             for row in queries:
                 user_id = row[0]
                 count = row[1]
                 my_hashmap[user_id] = count
+                #print(row)
     except sqlite3.Error as err:
         print("Error retrieving values from the database", err)
 
@@ -47,7 +50,13 @@ async def count_message(message):
     #call database function for increment_count
     try:
         with Database('db/counts.sqlite3') as db:
-            db.increment_count(user_id, my_hashmap.get(user_id))
+            db.increment_count(user_id, my_hashmap[user_id])
+            db.execute("SELECT * FROM Crying")
+            queries = db.fetchall()
+        
+            for row in queries:
+                print(row)
+            
     except sqlite3.Error as err:
         print("Error incrementing count", err)
     
