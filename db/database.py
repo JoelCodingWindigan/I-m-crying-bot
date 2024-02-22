@@ -1,14 +1,5 @@
 import sqlite3
 
-'''
-for reference:
-try:
-    with Database(filename.sqlite) as db:
-        db.execute("SELECT ...", (karni_id,))
-        db.commit()
-except sqlite3.Error as error:
-    pass
-'''
 
 class Database:
 
