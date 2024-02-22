@@ -6,7 +6,7 @@ class Database:
     def __init__(self, dbfile: str):
         self._conn = sqlite3.connect(dbfile)
         self._cursor = self._conn.cursor()
-    
+
     def createTable(self):
         #to create user_counts table
         self.execute('CREATE TABLE IF NOT EXISTS Crying (user_id INTEGER PRIMARY KEY, count INTEGER DEFAULT 0)')

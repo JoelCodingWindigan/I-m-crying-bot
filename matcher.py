@@ -132,7 +132,10 @@ def is_similar(
         `bool`: whether the phrase is similar to any phrase in the list.
     """
     words = to_words(phrase_have)
-    return any(match_phrase(words, phrase, similarity_threshold, interrupt_threshold, similarity_func) for phrase in phrases_want)
+    return any(
+        match_phrase(words, phrase, similarity_threshold, interrupt_threshold, similarity_func)
+        for phrase in phrases_want
+    )
 
 def Matcher(
         phrase_want: list[Phrase],
